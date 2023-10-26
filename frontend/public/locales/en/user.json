@@ -1,0 +1,8 @@
+{
+    "title": "{{user}}'s Usage",
+    "fetching": "Fetching your data...",
+    "requestsCount": "Today's Requests: {{count}}",
+    "empty": "Empty",
+    "Used": "Used",
+    "Unused": "Unused"
+}
