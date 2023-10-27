@@ -36,7 +36,7 @@ export const MobileMenu = (): JSX.Element => {
                     <p className="">
                       AI research agent{" "}
                       <span className="text-primary dark:bg-white rounded-sm">
-                        mrg
+                        ghostagent
                       </span>
                     </p>
 

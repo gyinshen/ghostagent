@@ -23,3 +23,5 @@ export const ShortcutItem = ({ content }: ShortcutItemProps): JSX.Element => {
     </Link>
   );
 };
+
+

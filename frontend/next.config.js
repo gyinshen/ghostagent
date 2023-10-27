@@ -15,13 +15,13 @@ const nextConfig = {
 };
 
 const ContentSecurityPolicy = `
-  default-src 'self' https://fonts.googleapis.com ${process.env.NEXT_PUBLIC_SUPABASE_URL} https://api.june.so https://www.myresearchghost.com/ https://ghostagent.me/ http://localhost:3000/; 
+  default-src 'self' https://fonts.googleapis.com ${process.env.NEXT_PUBLIC_SUPABASE_URL} https://api.june.so https://www.ghostagent.me/ https://ghostagent.me/ http://localhost:3000/; 
   connect-src 'self' ${process.env.NEXT_PUBLIC_SUPABASE_URL} ${process.env.NEXT_PUBLIC_BACKEND_URL} https://api.june.so https://api.openai.com https://cdn.growthbook.io;
   img-src 'self' data:;
   media-src 'self' https://user-images.githubusercontent.com;
-  script-src 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com/  https://www.myresearchghost.com/ https://ghostagent.me/ http://localhost:3000/;
+  script-src 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com/  https://www.ghostagent.me/ https://ghostagent.me/ http://localhost:3000/;
   frame-ancestors 'none';
-  style-src 'unsafe-inline' https://www.myresearchghost.com/ https://ghostagent.me/ http://localhost:3000/;
+  style-src 'unsafe-inline' https://www.ghostagent.me/ https://ghostagent.me/ http://localhost:3000/;
 `;
 
 // Define headers

@@ -6,10 +6,11 @@ import { useTranslation } from "react-i18next";
 import Button from "@/lib/components/ui/Button";
 import { ReportBar } from "./components/ReportBar/ReportBar";
 import { useReportContext } from "@/lib/context";
-
+import { useSupabase } from "@/lib/context/SupabaseProvider";
 import { useReportInput } from "./hooks/useReportInput";
 
 export const ReportInput = (): JSX.Element => {
+  const { session } = useSupabase();
   const { setMessage, submitQuestion, generatingAnswer, message } =
     useReportInput();
   const { t } = useTranslation(["report"]);
@@ -63,7 +64,7 @@ export const ReportInput = (): JSX.Element => {
           message={message}
           setMessage={setMessage}
           onSubmit={submitQuestion}
-          disabled={messages.length !== 0}
+          disabled={messages.length !== 0 || session === null}
         />
       </div>
       <div className="flex flex-row items-end">
@@ -73,7 +74,7 @@ export const ReportInput = (): JSX.Element => {
               type="submit"
               isLoading={generatingAnswer}
               data-testid="submit-button"
-              disabled={messages.length !== 0}
+              disabled={messages.length !== 0 || session === null}
             >
               {generatingAnswer
                 ? t("thinking", { ns: "report" })

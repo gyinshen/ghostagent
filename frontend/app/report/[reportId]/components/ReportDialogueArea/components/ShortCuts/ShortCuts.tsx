@@ -17,13 +17,13 @@ export const ShortCuts = (): JSX.Element => {
     {
       content: [
         { text: "Business analysis" },
-        { text: "Carsome's business model", url: "/report/37044479-d754-4b2a-84c3-9e8d61e5b2c6" }, 
+        { text: "OpenAI's business model", url: "/report/7993dfd3-ceb5-42f0-a8bb-ad3d0ebcf695" }, 
       ],
     },
     {
       content: [
         { text: "Business analysis" },
-        { text: "Zalo's business model", url: "/report/e6f2a4f5-3fbb-443f-8806-764151e3c764" },
+        { text: "Digital Ocean's business model", url: "/report/6d0d1e4f-e782-40c9-8942-dc322f7a0ebc" },
       ],
     },
   ];

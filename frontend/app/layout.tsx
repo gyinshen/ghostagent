@@ -13,7 +13,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "mrg - AI research agent",
+  title: "ghostagent - AI research agent",
   description:
     "MyResearchGhost automatically conduct research on the internet and generate a brief report on any topic.",
 };
