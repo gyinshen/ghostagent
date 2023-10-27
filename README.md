@@ -1,8 +1,8 @@
 # ghostagent
 
-AI researcher - search, scrape, summarize - [GhostAgent.me](https://ghostagent.me/report)
+AI researcher - search, scrape, summarize - You can deploy your own GPT Researcher with history or view demo here [GhostAgent.me](https://ghostagent.me/report)
 
-https://raw.githubusercontent.com/gyinshen/ghostagent/main/frontend/public/demo1.png
+https://github.com/gyinshen/ghostagent/blob/main/frontend/public/demo1.png
 
 ## Table of Contents
 
