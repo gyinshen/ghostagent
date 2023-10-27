@@ -28,7 +28,7 @@ export const useReport = () => {
   const { createReport } = useReportApi();
 
   const { addStreamQuestion } = useQuestion();
-  const { t } = useTranslation(["chat"]);
+  const { t } = useTranslation(["report"]);
 
   const addQuestion = async (question: string, callback?: () => void) => {
     if (question === "") {

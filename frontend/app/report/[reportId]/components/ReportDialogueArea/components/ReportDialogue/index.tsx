@@ -12,7 +12,7 @@ type MessagesDialogueProps = {
 export const ReportDialogue = ({
   reportItems,
 }: MessagesDialogueProps): JSX.Element => {
-  const { t } = useTranslation(["chat"]);
+  const { t } = useTranslation(["report"]);
   const { reportListRef } = useReportDialogue();
 
   return (
