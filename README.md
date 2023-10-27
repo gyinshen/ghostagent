@@ -1,6 +1,6 @@
 # ghostagent
 
-AI researcher - search, scrape, summarize
+AI researcher - search, scrape, summarize - [GhostAgent.me](https://ghostagent.me/report)
 
 ## Table of Contents
 
