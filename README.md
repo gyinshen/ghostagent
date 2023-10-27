@@ -17,8 +17,7 @@ AI researcher - search, scrape, summarize - You can deploy your own GPT Research
 
 ## Installation
 
-Describe the installation process here. It's usually something like:
-
+There are two services you have to start locally, namely frontend and backend.
 
 Frontend - inspired by - [Quiver](https://github.com/StanGirard/quivr)
 ```bash
