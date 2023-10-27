@@ -30,7 +30,7 @@ export const ReportDialogue = ({
           data-testid="empty-history-message"
           className="text-center opacity-50"
         >
-          {t("ask", { ns: "chat" })}
+          {t("ask", { ns: "report" })}
         </div>
       ) : (
         <div className="flex flex-col gap-3">

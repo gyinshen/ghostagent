@@ -81,7 +81,7 @@ export const useReport = () => {
       if ((error as AxiosError).response?.status === 429) {
         publish({
           variant: "danger",
-          text: t("limit_reached", { ns: "chat" }),
+          text: t("limit_reached", { ns: "report" }),
         });
 
         return;
@@ -89,7 +89,7 @@ export const useReport = () => {
 
       publish({
         variant: "danger",
-        text: t("error_occurred", { ns: "chat" }),
+        text: t("error_occurred", { ns: "report" }),
       });
     } finally {
       setGeneratingAnswer(false);
