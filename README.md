@@ -2,6 +2,8 @@
 
 AI researcher - search, scrape, summarize - [GhostAgent.me](https://ghostagent.me/report)
 
+https://raw.githubusercontent.com/gyinshen/ghostagent/main/frontend/public/demo1.png
+
 ## Table of Contents
 
 - [Installation](#installation)
