@@ -7,7 +7,7 @@ from PyPDF2 import PdfReader
 
 import requests
 from io import BytesIO
-import os
+
 
 from bs4 import BeautifulSoup
 # from webdriver_manager.chrome import ChromeDriverManager
@@ -24,11 +24,16 @@ from selenium.webdriver.support.wait import WebDriverWait
 # from fastapi import WebSocket
 from seleniumwire import webdriver
 from selenium.common.exceptions import TimeoutException
+
 import time
+
+
+
 import repository.report.processing.text as summary
+
 from repository.report.config import Config
 from repository.report.processing.html import extract_hyperlinks, format_hyperlinks
-from asyncio import Semaphore
+
 from concurrent.futures import ThreadPoolExecutor
 
 executor = ThreadPoolExecutor()
@@ -36,9 +41,8 @@ executor = ThreadPoolExecutor()
 FILE_DIR = Path(__file__).parent.parent
 CFG = Config()
 
-PROXY_HTTP = os.environ.get("PROXY_HTTP")
-PROXY_HTTPS = os.environ.get("PROXY_HTTPS")
 
+from asyncio import Semaphore
 
 sem = Semaphore(200)  # Limit to 12 concurrent tasks
 
@@ -77,18 +81,17 @@ def scrape_text_with_selenium(url: str) -> tuple[WebDriver, str]:
 
         options_available = {"chrome": ChromeOptions, "safari": SafariOptions, "firefox": FirefoxOptions,}
         options = options_available[CFG.selenium_web_browser]()
-        # seleniumwire_options = {
-        #     'proxy': {
-        #         'http': PROXY_HTTP,
-        #         'https': PROXY_HTTPS,
-        #     }
-        # }
-
+        seleniumwire_options = {
+            'proxy': {
+                'http': 'http://linkjblair:hasbdkhb126@5.161.134.33:12321',
+                'https': 'http://linkjblair:hasbdkhb126@5.161.134.33:12321',
+            }
+        }
         # Create a separate proxy dictionary for 'requests'
-        # requests_proxy = {
-        #     'http': PROXY_HTTP,
-        #     'https': PROXY_HTTPS,
-        # }
+        requests_proxy = {
+            'http': 'http://linkjblair:hasbdkhb126@5.161.134.33:12321',
+            'https': 'http://linkjblair:hasbdkhb126@5.161.134.33:12321',
+        }
 
         options.add_argument(CFG.user_agent)
         options.add_argument('--headless')
@@ -97,24 +100,20 @@ def scrape_text_with_selenium(url: str) -> tuple[WebDriver, str]:
 
         if CFG.selenium_web_browser == "firefox":
             service = Service(executable_path=GeckoDriverManager().install())
-            # driver = webdriver.Firefox(seleniumwire_options=seleniumwire_options, service=service, options=options)
-            driver = webdriver.Firefox(service=service, options=options)
-
+            driver = webdriver.Firefox(seleniumwire_options=seleniumwire_options, service=service, options=options)
         elif CFG.selenium_web_browser == "safari":
-            # driver = webdriver.Safari(seleniumwire_options=seleniumwire_options, options=options)
-            driver = webdriver.Safari(options=options)
+            driver = webdriver.Safari(seleniumwire_options=seleniumwire_options, options=options)
         else:
             options.add_experimental_option("prefs", {"download_restrictions": 3, "profile.managed_default_content_settings.images": 2})
-            # driver = webdriver.Chrome(seleniumwire_options=seleniumwire_options, options=options)
-            driver = webdriver.Chrome(options=options)
+            driver = webdriver.Chrome(seleniumwire_options=seleniumwire_options, options=options)
 
         time.sleep(1)
         driver.set_page_load_timeout(17)
 
         # Check if the URL ends with '.pdf'
-        # response = requests.get(url, proxies=requests_proxy) # type: ignore
-        response = requests.get(url) # type: ignore
+        response = requests.get(url, proxies=requests_proxy)
         if 'Content-Type' in response.headers and response.headers['Content-Type'] == 'application/pdf':
+
             # Use requests to get the pdf file, pass the requests_proxy dictionary
             # response = requests.get(url, proxies=requests_proxy)
 

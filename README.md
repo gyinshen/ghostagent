@@ -38,6 +38,12 @@ You also have to register for a Supabase account and replace the environmental v
 ## Usage
 Quick demo [GhostAgent.me](https://ghostagent.me/report)
 
+There are some limitations:
+* Does not work well with PDF.
+* Some websites will return error
+* Unable to specify market research in certain time period, only latest
+* Does not work well with economic bloc research (such as ASEAN, SEA or APAC) → individual countries work better
+
 
 
 ## Credits
