@@ -4,9 +4,11 @@ import asyncio
 from pathlib import Path
 # from sys import platform
 from PyPDF2 import PdfReader
-
+import os
 import requests
 from io import BytesIO
+from urllib.parse import urlparse
+
 
 
 from bs4 import BeautifulSoup
@@ -41,12 +43,15 @@ executor = ThreadPoolExecutor()
 FILE_DIR = Path(__file__).parent.parent
 CFG = Config()
 
+PROXY_HTTP = os.environ.get("PROXY_HTTP")
+PROXY_HTTPS = os.environ.get("PROXY_HTTPS")
+
 
 from asyncio import Semaphore
 
 sem = Semaphore(200)  # Limit to 12 concurrent tasks
 
-async def async_browse(url: str, question: str) -> str:
+async def async_browse(url: str, question: str, directory_name: str) -> str:
     driver = None  # Initialize the driver
     async with sem:  # Limits the number of concurrent tasks
         loop = asyncio.get_event_loop()
@@ -56,7 +61,7 @@ async def async_browse(url: str, question: str) -> str:
 
         try:
             # Create a new WebDriver instance in each thread
-            driver, text = await loop.run_in_executor(None, scrape_text_with_selenium, url)
+            driver, text = await loop.run_in_executor(None, scrape_text_with_selenium, url, directory_name)
             await loop.run_in_executor(None, add_header, driver)
             summary_text = await loop.run_in_executor(None, summary.summarize_text, url, text, question, driver)
 
@@ -71,7 +76,7 @@ async def async_browse(url: str, question: str) -> str:
                 driver.quit()
 
 
-def scrape_text_with_selenium(url: str) -> tuple[WebDriver, str]:
+def scrape_text_with_selenium(url: str, directory_name: str) -> tuple[WebDriver, str]:
     driver = None
     text = ''
     soup = None
@@ -83,14 +88,14 @@ def scrape_text_with_selenium(url: str) -> tuple[WebDriver, str]:
         options = options_available[CFG.selenium_web_browser]()
         seleniumwire_options = {
             'proxy': {
-                'http': 'http://linkjblair:hasbdkhb126@5.161.134.33:12321',
-                'https': 'http://linkjblair:hasbdkhb126@5.161.134.33:12321',
+                'http': PROXY_HTTP,
+                'https': PROXY_HTTPS,
             }
         }
         # Create a separate proxy dictionary for 'requests'
         requests_proxy = {
-            'http': 'http://linkjblair:hasbdkhb126@5.161.134.33:12321',
-            'https': 'http://linkjblair:hasbdkhb126@5.161.134.33:12321',
+            'http': PROXY_HTTP,
+            'https': PROXY_HTTPS,
         }
 
         options.add_argument(CFG.user_agent)
@@ -170,6 +175,13 @@ def scrape_text_with_selenium(url: str) -> tuple[WebDriver, str]:
             lines = (line.strip() for line in text.splitlines())
             chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
             text = "\n".join(chunk for chunk in chunks if chunk)
+            parsed_url = urlparse(url)
+            short_url = parsed_url.netloc + parsed_url.path
+            short_url = short_url.replace("/", "-").replace(":", "-")[:30]
+
+            os.makedirs(os.path.dirname(f"./outputs/{directory_name}/scraped/{short_url}.txt"), exist_ok=True)
+            with open(f"./outputs/{directory_name}/scraped/{short_url}.txt", "w") as file:
+                file.write(url + "\n" + text)
 
         return driver, text # type: ignore
 

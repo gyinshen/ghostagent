@@ -138,7 +138,7 @@ class ResearchAgent:
         message_async_search = f"🌐 Browsing the following sites for relevant information...\n\n"
 
         # Create a list to hold the coroutine objects
-        tasks = [async_browse(url, query) for url in new_search_urls]
+        tasks = [async_browse(url, query, self.directory_name) for url in new_search_urls]
 
         # Gather the results as they become available
         responses = await asyncio.gather(*tasks, return_exceptions=True)
