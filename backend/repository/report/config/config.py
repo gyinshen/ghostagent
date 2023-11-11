@@ -21,8 +21,8 @@ class Config(metaclass=Singleton):
         self.allow_downloads = False
 
         self.selenium_web_browser = os.getenv("USE_WEB_BROWSER", "chrome")
-        self.fast_llm_model = os.getenv("FAST_LLM_MODEL", "gpt-3.5-turbo-16k")
-        self.smart_llm_model = os.getenv("SMART_LLM_MODEL", "gpt-4")
+        self.fast_llm_model = os.getenv("FAST_LLM_MODEL", "gpt-3.5-turbo-1106")
+        self.smart_llm_model = os.getenv("SMART_LLM_MODEL", "gpt-4-1106-preview")
         # self.smart_llm_model = os.getenv("SMART_LLM_MODEL", "gpt-3.5-turbo-16k")
         self.fast_token_limit = int(os.getenv("FAST_TOKEN_LIMIT", 4000))
         self.smart_token_limit = int(os.getenv("SMART_TOKEN_LIMIT", 8000))
